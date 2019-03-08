@@ -1,0 +1,22 @@
+{
+    "name": "notihnio/php-request-parser",
+    "description": "The missing php functionality to support put, patch, delete, etc.. requests handling",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Notis Mastrandrikos",
+            "email": "pmastrandrikos@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Notihnio\\RequestParser\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.1",
+        "notihnio/php-multipart-form-data-parser": "1.0.0"
+    },
+    "minimum-stability": "dev"
+}
