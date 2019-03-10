@@ -25,7 +25,6 @@ class RequestParser
     {
         //find method
         $method = strtoupper($_SERVER['REQUEST_METHOD']);
-        $GLOBALS["_".$method] = [];
         $dataset = new RequestDataset();
 
         if (array_key_exists("CONTENT_TYPE", $_SERVER)) {
@@ -53,6 +52,8 @@ class RequestParser
         if ($method == "GET") {
             return $dataset;
         }
+
+        $GLOBALS["_".$method] = [];
 
         //get form params
         parse_str(file_get_contents("php://input"), $params);
