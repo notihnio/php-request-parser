@@ -3,6 +3,8 @@
 namespace Notihnio\RequestParser;
 
 use Notihnio\MultipartFormDataParser\MultipartFormDataParser;
+use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
+use Illuminate\Http\Request as LaravelRequest;
 
 /**
  * Class RequestParser
@@ -14,23 +16,29 @@ class RequestParser
     /**
      * @var bool
      */
-    private static $isMultipart = false;
+    private static bool $isMultipart = false;
 
     /**
      * Parses request
      *
+     * @param $request \Symfony\Component\HttpFoundation\Request|\Illuminate\Http\Request|null
      * @return \Notihnio\RequestParser\RequestDataset|null
      */
-    public static function parse() : ?RequestDataset
+    public static function parse(SymfonyRequest|LaravelRequest|null $request = null) : ?RequestDataset
     {
         //find method
-        $method = strtoupper($_SERVER['REQUEST_METHOD']);
+        $method = (is_null($request)) ? strtoupper($_SERVER['REQUEST_METHOD']) : $request->getMethod();
         $dataset = new RequestDataset();
 
-        if (array_key_exists("CONTENT_TYPE", $_SERVER)) {
-            $contentType = strtolower($_SERVER["CONTENT_TYPE"]);
-            self::$isMultipart = preg_match('/^multipart\/form-data/', $contentType) ? true : false;
-        }
+        $contentType = (is_null($request) && array_key_exists("CONTENT_TYPE", $_SERVER))
+            ?
+            strtolower($_SERVER["CONTENT_TYPE"])
+            :
+            $request->getContentType();
+
+        $contentType = $contentType ?? "";
+
+        self::$isMultipart = (bool)preg_match('/^multipart\/form-data/', $contentType);
 
         //handle multipart requests
         if (self::$isMultipart) {
@@ -43,20 +51,25 @@ class RequestParser
         }
 
         //handle other requests
-        if ($method == "POST") {
-            $dataset->files = $_FILES;
-            $dataset->params = $_POST;
+        if ($method === "POST") {
+            $dataset->files = (is_null($request)) ? $_FILES : $request->files;
+            $dataset->params = (is_null($request)) ? $_POST : $request->request->all();
             return $dataset;
         }
 
-        if ($method == "GET") {
+        if ($method === "GET") {
+            $dataset->params = (is_null($request)) ? $_GET : $request->request->all();
+            if (!is_null($request)) {
+                $GLOBALS["_".$method] = $request->request->all();
+            }
             return $dataset;
         }
 
         $GLOBALS["_".$method] = [];
 
         //get form params
-        parse_str(file_get_contents("php://input"), $params);
+        $requestContents = (is_null($request)) ? file_get_contents("php://input") : $request->getContent(true);
+        parse_str($requestContents, $params);
         $GLOBALS["_".$method] = $params;
         $dataset->params = $params;
 
