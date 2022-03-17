@@ -30,13 +30,14 @@ class RequestParser
         $method = (is_null($request)) ? strtoupper($_SERVER['REQUEST_METHOD']) : $request->getMethod();
         $dataset = new RequestDataset();
 
-        $contentType = (is_null($request) && array_key_exists("CONTENT_TYPE", $_SERVER))
-            ?
-            strtolower($_SERVER["CONTENT_TYPE"])
-            :
-            $request->getContentType();
-
-        $contentType = $contentType ?? "";
+        $contentType = "";
+        if (is_null($request)) {
+            if (array_key_exists("CONTENT_TYPE", $_SERVER)) {
+                $contentType = strtolower($_SERVER["CONTENT_TYPE"]);
+            }
+        } else {
+            $contentType = $request->getContentType();
+        }
 
         self::$isMultipart = (bool)preg_match('/^multipart\/form-data/', $contentType);
 
