@@ -16,7 +16,7 @@
     },
     "require": {
         "php": ">=8.0",
-        "notihnio/php-multipart-form-data-parser": "1.0.0",
+        "notihnio/php-multipart-form-data-parser": "master",
         "illuminate/http": "^9.0"
     },
     "minimum-stability": "dev"
