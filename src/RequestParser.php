@@ -30,6 +30,12 @@ class RequestParser
         $method = (is_null($request)) ? strtoupper($_SERVER['REQUEST_METHOD']) : $request->getMethod();
         $dataset = new RequestDataset();
 
+        //find headers
+        $dataset->headers = (is_null($request)) ? getallheaders() : $request->headers->all();
+
+        //get cookies
+        $dataset->cookies = (is_null($request)) ? $_COOKIE : $request->cookies->all();
+
         $contentType = "";
         if (is_null($request)) {
             if (array_key_exists("CONTENT_TYPE", $_SERVER)) {
