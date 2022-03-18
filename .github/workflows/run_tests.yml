@@ -34,3 +34,6 @@ jobs:
       
     - name: Run tests
       run: php ${GITHUB_WORKSPACE}/test/vendor/phpunit/phpunit/phpunit --configuration ${GITHUB_WORKSPACE}/test/phpunit.xml
+
+    - name: Show logs
+      run: cat ${GITHUB_WORKSPACE}/test/website-log
