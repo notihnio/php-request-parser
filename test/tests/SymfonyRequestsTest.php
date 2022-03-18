@@ -3,7 +3,6 @@
 use \PHPUnit\Framework\TestCase;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
-use Symfony\Component\Process\Process;
 
 class SymfonyRequestsTest extends TestCase
 {
@@ -25,7 +24,6 @@ class SymfonyRequestsTest extends TestCase
             ]
         );
 
-        $a = $response->getBody()->getContents();
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
         $this->assertCount(4, $responseData);
@@ -111,7 +109,6 @@ class SymfonyRequestsTest extends TestCase
             ]
         );
 
-        $a = $response->getBody()->getContents();
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
         $this->assertCount(4, $responseData);

@@ -80,6 +80,11 @@ class RequestParser
         return $dataset;
     }
 
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request|\Illuminate\Http\Request $request
+     *
+     * @return array
+     */
     private static function parseSymfonyHeaders(SymfonyRequest|LaravelRequest $request) : array {
         $headers = [];
         foreach ($request->headers->all() as $headerName => $header) {
