@@ -52,18 +52,22 @@ class RequestsTest extends TestCase
         );
 
         $client = new Client();
-        $response = $client->request(
-            "POST",
-            'http://localhost:3000',
-            [
-                'headers' => ['Accept-Encoding' => 'gzip'],
-                'cookies' => $cookieJar,
-                'form_params' => [
-                    'param' => '1',
-                    'param2' => '2'
+        try {
+            $response = $client->request(
+                "POST",
+                'http://localhost:3000',
+                [
+                    'headers' => ['Accept-Encoding' => 'gzip'],
+                    'cookies' => $cookieJar,
+                    'form_params' => [
+                        'param' => '1',
+                        'param2' => '2'
+                    ]
                 ]
-            ]
-        );
+            );
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+            echo $e->getMessage();
+        }
 
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
@@ -96,18 +100,22 @@ class RequestsTest extends TestCase
         );
 
         $client = new Client();
-        $response = $client->request(
-            "PATCH",
-            'http://localhost:3000',
-            [
-                'headers' => ['Accept-Encoding' => 'gzip'],
-                'cookies' => $cookieJar,
-                'form_params' => [
-                    'param' => '1',
-                    'param2' => '2'
+        try {
+            $response = $client->request(
+                "PATCH",
+                'http://localhost:3000',
+                [
+                    'headers' => ['Accept-Encoding' => 'gzip'],
+                    'cookies' => $cookieJar,
+                    'form_params' => [
+                        'param' => '1',
+                        'param2' => '2'
+                    ]
                 ]
-            ]
-        );
+            );
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+            echo $e->getMessage();
+        }
 
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
@@ -139,18 +147,22 @@ class RequestsTest extends TestCase
         );
 
         $client = new Client();
-        $response = $client->request(
-            "DELETE",
-            'http://localhost:3000',
-            [
-                'headers' => ['Accept-Encoding' => 'gzip'],
-                'cookies' => $cookieJar,
-                'form_params' => [
-                    'param' => '1',
-                    'param2' => '2'
+        try {
+            $response = $client->request(
+                "DELETE",
+                'http://localhost:3000',
+                [
+                    'headers' => ['Accept-Encoding' => 'gzip'],
+                    'cookies' => $cookieJar,
+                    'form_params' => [
+                        'param' => '1',
+                        'param2' => '2'
+                    ]
                 ]
-            ]
-        );
+            );
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+            echo $e->getMessage();
+        }
 
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
@@ -182,18 +194,22 @@ class RequestsTest extends TestCase
         );
 
         $client = new Client();
-        $response = $client->request(
-            "DELETE",
-            'http://localhost:3000',
-            [
-                'headers' => ['Accept-Encoding' => 'gzip'],
-                'cookies' => $cookieJar,
-                'form_params' => [
-                    'param' => '1',
-                    'param2' => '2'
+        try {
+            $response = $client->request(
+                "DELETE",
+                'http://localhost:3000',
+                [
+                    'headers' => ['Accept-Encoding' => 'gzip'],
+                    'cookies' => $cookieJar,
+                    'form_params' => [
+                        'param' => '1',
+                        'param2' => '2'
+                    ]
                 ]
-            ]
-        );
+            );
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+            echo $e->getMessage();
+        }
 
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 

@@ -52,21 +52,25 @@ class LaravelMultipartRequestsTest extends TestCase
         );
 
         $client = new Client();
-        $response = $client->request(
-            "POST",
-            'http://localhost:3001',
-            [
-                'headers' => ['Accept-Encoding' => 'gzip'],
-                'cookies' => $cookieJar,
-                'multipart' => [
-                    [
-                        'name'     => 'iconFile',
-                        'contents' => file_get_contents(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."icon.png"),
-                        'filename' => "icon.png"
+        try {
+            $response = $client->request(
+                "POST",
+                'http://localhost:3001',
+                [
+                    'headers' => ['Accept-Encoding' => 'gzip'],
+                    'cookies' => $cookieJar,
+                    'multipart' => [
+                        [
+                            'name' => 'iconFile',
+                            'contents' => file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "icon.png"),
+                            'filename' => "icon.png"
+                        ]
                     ]
                 ]
-            ]
-        );
+            );
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+            echo $e->getMessage();
+        }
 
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
@@ -102,21 +106,25 @@ class LaravelMultipartRequestsTest extends TestCase
         );
 
         $client = new Client();
-        $response = $client->request(
-            "PATCH",
-            'http://localhost:3001',
-            [
-                'headers' => ['Accept-Encoding' => 'gzip'],
-                'cookies' => $cookieJar,
-                'multipart' => [
-                    [
-                        'name'     => 'iconFile',
-                        'contents' => file_get_contents(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."icon.png"),
-                        'filename' => "icon.png"
+        try {
+            $response = $client->request(
+                "PATCH",
+                'http://localhost:3001',
+                [
+                    'headers' => ['Accept-Encoding' => 'gzip'],
+                    'cookies' => $cookieJar,
+                    'multipart' => [
+                        [
+                            'name' => 'iconFile',
+                            'contents' => file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "icon.png"),
+                            'filename' => "icon.png"
+                        ]
                     ]
                 ]
-            ]
-        );
+            );
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+            echo $e->getMessage();
+        }
 
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
@@ -151,21 +159,25 @@ class LaravelMultipartRequestsTest extends TestCase
         );
 
         $client = new Client();
-        $response = $client->request(
-            "DELETE",
-            'http://localhost:3001',
-            [
-                'headers' => ['Accept-Encoding' => 'gzip'],
-                'cookies' => $cookieJar,
-                'multipart' => [
-                    [
-                        'name'     => 'iconFile',
-                        'contents' => file_get_contents(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."icon.png"),
-                        'filename' => "icon.png"
+        try {
+            $response = $client->request(
+                "DELETE",
+                'http://localhost:3001',
+                [
+                    'headers' => ['Accept-Encoding' => 'gzip'],
+                    'cookies' => $cookieJar,
+                    'multipart' => [
+                        [
+                            'name' => 'iconFile',
+                            'contents' => file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "icon.png"),
+                            'filename' => "icon.png"
+                        ]
                     ]
                 ]
-            ]
-        );
+            );
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+            echo $e->getMessage();
+        }
 
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
@@ -200,21 +212,25 @@ class LaravelMultipartRequestsTest extends TestCase
         );
 
         $client = new Client();
-        $response = $client->request(
-            "DELETE",
-            'http://localhost:3001',
-            [
-                'headers' => ['Accept-Encoding' => 'gzip'],
-                'cookies' => $cookieJar,
-                'multipart' => [
-                    [
-                        'name'     => 'iconFile',
-                        'contents' => file_get_contents(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."icon.png"),
-                        'filename' => "icon.png"
+        try {
+            $response = $client->request(
+                "DELETE",
+                'http://localhost:3001',
+                [
+                    'headers' => ['Accept-Encoding' => 'gzip'],
+                    'cookies' => $cookieJar,
+                    'multipart' => [
+                        [
+                            'name' => 'iconFile',
+                            'contents' => file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "icon.png"),
+                            'filename' => "icon.png"
+                        ]
                     ]
                 ]
-            ]
-        );
+            );
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
+            echo $e->getMessage();
+        }
 
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
