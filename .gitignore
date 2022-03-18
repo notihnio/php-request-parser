@@ -5,3 +5,6 @@ vendor
 test/vendor
 test/composer.lock
 test/.phpunit.result.cache
+test/website-log
+test/laravelWebsite-log
+test/symfonyWebsite-log
