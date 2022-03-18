@@ -27,7 +27,7 @@ jobs:
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      run: composer install --working-dir=${GITHUB_WORKSPACE}/test --prefer-dist --no-progress
 
     - name: Run test web servers
       run: sh ${GITHUB_WORKSPACE}/test/initservers.sh
