@@ -31,20 +31,17 @@ class RequestParser
         $dataset = new RequestDataset();
 
         //find headers
-        $dataset->headers = (is_null($request)) ? getallheaders() : $request->headers->all();
+        $headers = (is_null($request)) ? getallheaders() : self::parseSymfonyHeaders($request);
+        $headers = array_change_key_case($headers, CASE_LOWER);
+
+        $dataset->headers = $headers;
 
         //get cookies
-        $dataset->cookies = (is_null($request)) ? $_COOKIE : $request->cookies->all();
+        $cookies = (is_null($request)) ? $_COOKIE : $request->cookies->all();
+        $cookies = array_change_key_case($cookies, CASE_LOWER);
+        $dataset->cookies = $cookies;
 
-        $contentType = "";
-        if (is_null($request)) {
-            if (array_key_exists("CONTENT_TYPE", $_SERVER)) {
-                $contentType = strtolower($_SERVER["CONTENT_TYPE"]);
-            }
-        } else {
-            $contentType = $request->getContentType();
-        }
-
+        $contentType = (array_key_exists("content-type", $dataset->headers)) ? $dataset->headers["content-type"] : "";
         self::$isMultipart = (bool)preg_match('/^multipart\/form-data/', $contentType);
 
         //handle multipart requests
@@ -59,15 +56,15 @@ class RequestParser
 
         //handle other requests
         if ($method === "POST") {
-            $dataset->files = (is_null($request)) ? $_FILES : $request->files;
+            $dataset->files = (is_null($request)) ? $_FILES : $request->files->all();
             $dataset->params = (is_null($request)) ? $_POST : $request->request->all();
             return $dataset;
         }
 
         if ($method === "GET") {
-            $dataset->params = (is_null($request)) ? $_GET : $request->request->all();
+            $dataset->params = (is_null($request)) ? $_GET : $request->query->all();
             if (!is_null($request)) {
-                $GLOBALS["_".$method] = $request->request->all();
+                $GLOBALS["_".$method] = $request->query->all();
             }
             return $dataset;
         }
@@ -75,11 +72,19 @@ class RequestParser
         $GLOBALS["_".$method] = [];
 
         //get form params
-        $requestContents = (is_null($request)) ? file_get_contents("php://input") : $request->getContent(true);
+        $requestContents = (is_null($request)) ? file_get_contents("php://input") : $request->getContent();
         parse_str($requestContents, $params);
         $GLOBALS["_".$method] = $params;
         $dataset->params = $params;
 
         return $dataset;
+    }
+
+    private static function parseSymfonyHeaders(SymfonyRequest|LaravelRequest $request) : array {
+        $headers = [];
+        foreach ($request->headers->all() as $headerName => $header) {
+            $headers[$headerName] = (is_array($header)) ? $header[0] : $header;
+        }
+        return $headers;
     }
 }
