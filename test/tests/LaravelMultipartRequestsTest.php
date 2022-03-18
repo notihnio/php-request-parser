@@ -69,7 +69,7 @@ class LaravelMultipartRequestsTest extends TestCase
                 ]
             );
         } catch (\GuzzleHttp\Exception\GuzzleException $e) {
-            die($e->getMessage());
+            echo $e->getMessage();
         }
 
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
@@ -123,7 +123,7 @@ class LaravelMultipartRequestsTest extends TestCase
                 ]
             );
         } catch (\GuzzleHttp\Exception\GuzzleException $e) {
-            die($e->getMessage());
+            echo $e->getMessage();
         }
 
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
@@ -176,7 +176,7 @@ class LaravelMultipartRequestsTest extends TestCase
                 ]
             );
         } catch (\GuzzleHttp\Exception\GuzzleException $e) {
-            die($e->getMessage());
+            echo $e->getMessage();
         }
 
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
@@ -229,7 +229,7 @@ class LaravelMultipartRequestsTest extends TestCase
                 ]
             );
         } catch (\GuzzleHttp\Exception\GuzzleException $e) {
-            die($e->getMessage());
+            echo $e->getMessage();
         }
 
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
