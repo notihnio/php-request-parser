@@ -10,9 +10,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-  
-    env:
-      working-dir: ./test
 
     steps:
     - uses: actions/checkout@v2
@@ -33,7 +30,7 @@ jobs:
       run: composer install --prefer-dist --no-progress
 
     - name: Run test web servers
-      run: sh ./initservers.sh
+      run: sh ${GITHUB_WORKSPACE}/test/initservers.sh
       
     - name: Run tests
-      run: php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit.xml
+      run: php ${GITHUB_WORKSPACE}/test/vendor/phpunit/phpunit/phpunit --configuration ${GITHUB_WORKSPACE}/test/phpunit.xml
