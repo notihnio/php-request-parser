@@ -11,13 +11,13 @@ class RequestsTest extends TestCase
         $cookieJar = CookieJar::fromArray([
             'cookie_name' => 'cookie_value'
         ],
-            'localhost:3000'
+            'localhost'
         );
 
         $client = new Client();
         $response = $client->request(
             "GET",
-            'http://localhost:3000',
+            'http://localhost:3000?param=1&param2=2',
             [
                 'headers' => ['Accept-Encoding' => 'gzip'],
                 'cookies' => $cookieJar
@@ -25,7 +25,195 @@ class RequestsTest extends TestCase
         );
 
         $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
-        $a = 2;
+
+        $this->assertCount(4, $responseData);
+        $this->assertCount(0, $responseData["files"]);
+
+        $this->assertCount(2, $responseData["params"]);
+        $this->assertEquals("1", $responseData["params"]["param"]);
+        $this->assertEquals("2", $responseData["params"]["param2"]);
+
+        $this->assertCount(4, $responseData["headers"]);
+        $this->assertEquals("localhost:3000", $responseData["headers"]["Host"]);
+        $this->assertEquals("GuzzleHttp/7", $responseData["headers"]["User-Agent"]);
+        $this->assertEquals("gzip", $responseData["headers"]["Accept-Encoding"]);
+        $this->assertEquals("cookie_name=cookie_value", $responseData["headers"]["Cookie"]);
+
+        $this->assertCount(1, $responseData["cookies"]);
+        $this->assertEquals("cookie_value", $responseData["cookies"]["cookie_name"]);
+    }
+
+    public function testPostRequest(): void
+    {
+        $cookieJar = CookieJar::fromArray([
+            'cookie_name' => 'cookie_value'
+        ],
+            'localhost'
+        );
+
+        $client = new Client();
+        $response = $client->request(
+            "POST",
+            'http://localhost:3000',
+            [
+                'headers' => ['Accept-Encoding' => 'gzip'],
+                'cookies' => $cookieJar,
+                'form_params' => [
+                    'param' => '1',
+                    'param2' => '2'
+                ]
+            ]
+        );
+
+        $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->assertCount(4, $responseData);
+        $this->assertCount(0, $responseData["files"]);
+
+        $this->assertCount(2, $responseData["params"]);
+        $this->assertEquals("1", $responseData["params"]["param"]);
+        $this->assertEquals("2", $responseData["params"]["param2"]);
+
+        $this->assertCount(6, $responseData["headers"]);
+        $this->assertEquals("localhost:3000", $responseData["headers"]["Host"]);
+        $this->assertEquals("GuzzleHttp/7", $responseData["headers"]["User-Agent"]);
+        $this->assertEquals("gzip", $responseData["headers"]["Accept-Encoding"]);
+        $this->assertEquals("application/x-www-form-urlencoded", $responseData["headers"]["Content-Type"]);
+        $this->assertEquals("16", $responseData["headers"]["Content-Length"]);
+        $this->assertEquals("cookie_name=cookie_value", $responseData["headers"]["Cookie"]);
+
+        $this->assertCount(1, $responseData["cookies"]);
+        $this->assertEquals("cookie_value", $responseData["cookies"]["cookie_name"]);
+    }
+
+
+    public function testPatchRequest(): void
+    {
+        $cookieJar = CookieJar::fromArray([
+            'cookie_name' => 'cookie_value'
+        ],
+            'localhost'
+        );
+
+        $client = new Client();
+        $response = $client->request(
+            "PATCH",
+            'http://localhost:3000',
+            [
+                'headers' => ['Accept-Encoding' => 'gzip'],
+                'cookies' => $cookieJar,
+                'form_params' => [
+                    'param' => '1',
+                    'param2' => '2'
+                ]
+            ]
+        );
+
+        $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->assertCount(4, $responseData);
+        $this->assertCount(0, $responseData["files"]);
+
+        $this->assertCount(2, $responseData["params"]);
+        $this->assertEquals("1", $responseData["params"]["param"]);
+        $this->assertEquals("2", $responseData["params"]["param2"]);
+
+        $this->assertCount(6, $responseData["headers"]);
+        $this->assertEquals("localhost:3000", $responseData["headers"]["Host"]);
+        $this->assertEquals("GuzzleHttp/7", $responseData["headers"]["User-Agent"]);
+        $this->assertEquals("gzip", $responseData["headers"]["Accept-Encoding"]);
+        $this->assertEquals("application/x-www-form-urlencoded", $responseData["headers"]["Content-Type"]);
+        $this->assertEquals("16", $responseData["headers"]["Content-Length"]);
+        $this->assertEquals("cookie_name=cookie_value", $responseData["headers"]["Cookie"]);
+
+        $this->assertCount(1, $responseData["cookies"]);
+        $this->assertEquals("cookie_value", $responseData["cookies"]["cookie_name"]);
+    }
+
+    public function testDeleteRequest(): void
+    {
+        $cookieJar = CookieJar::fromArray([
+            'cookie_name' => 'cookie_value'
+        ],
+            'localhost'
+        );
+
+        $client = new Client();
+        $response = $client->request(
+            "DELETE",
+            'http://localhost:3000',
+            [
+                'headers' => ['Accept-Encoding' => 'gzip'],
+                'cookies' => $cookieJar,
+                'form_params' => [
+                    'param' => '1',
+                    'param2' => '2'
+                ]
+            ]
+        );
+
+        $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->assertCount(4, $responseData);
+        $this->assertCount(0, $responseData["files"]);
+
+        $this->assertCount(2, $responseData["params"]);
+        $this->assertEquals("1", $responseData["params"]["param"]);
+        $this->assertEquals("2", $responseData["params"]["param2"]);
+
+        $this->assertCount(6, $responseData["headers"]);
+        $this->assertEquals("localhost:3000", $responseData["headers"]["Host"]);
+        $this->assertEquals("GuzzleHttp/7", $responseData["headers"]["User-Agent"]);
+        $this->assertEquals("gzip", $responseData["headers"]["Accept-Encoding"]);
+        $this->assertEquals("application/x-www-form-urlencoded", $responseData["headers"]["Content-Type"]);
+        $this->assertEquals("16", $responseData["headers"]["Content-Length"]);
+        $this->assertEquals("cookie_name=cookie_value", $responseData["headers"]["Cookie"]);
+
+        $this->assertCount(1, $responseData["cookies"]);
+        $this->assertEquals("cookie_value", $responseData["cookies"]["cookie_name"]);
+    }
+
+    public function testPutRequest(): void
+    {
+        $cookieJar = CookieJar::fromArray([
+            'cookie_name' => 'cookie_value'
+        ],
+            'localhost'
+        );
+
+        $client = new Client();
+        $response = $client->request(
+            "DELETE",
+            'http://localhost:3000',
+            [
+                'headers' => ['Accept-Encoding' => 'gzip'],
+                'cookies' => $cookieJar,
+                'form_params' => [
+                    'param' => '1',
+                    'param2' => '2'
+                ]
+            ]
+        );
+
+        $responseData = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+
+        $this->assertCount(4, $responseData);
+        $this->assertCount(0, $responseData["files"]);
+
+        $this->assertCount(2, $responseData["params"]);
+        $this->assertEquals("1", $responseData["params"]["param"]);
+        $this->assertEquals("2", $responseData["params"]["param2"]);
+
+        $this->assertCount(6, $responseData["headers"]);
+        $this->assertEquals("localhost:3000", $responseData["headers"]["Host"]);
+        $this->assertEquals("GuzzleHttp/7", $responseData["headers"]["User-Agent"]);
+        $this->assertEquals("gzip", $responseData["headers"]["Accept-Encoding"]);
+        $this->assertEquals("application/x-www-form-urlencoded", $responseData["headers"]["Content-Type"]);
+        $this->assertEquals("16", $responseData["headers"]["Content-Length"]);
+        $this->assertEquals("cookie_name=cookie_value", $responseData["headers"]["Cookie"]);
+
+        $this->assertCount(1, $responseData["cookies"]);
+        $this->assertEquals("cookie_value", $responseData["cookies"]["cookie_name"]);
     }
 
 }
