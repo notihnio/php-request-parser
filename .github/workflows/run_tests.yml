@@ -38,13 +38,16 @@ jobs:
         run: composer install --working-dir=${GITHUB_WORKSPACE}/test --prefer-dist --no-progress
 
       - name: Run test web servers
-        run: php -S localhost:3000 ${GITHUB_WORKSPACE}/test/website.php > ./website-log
-
-      - name: Check test servers health
-        run: curl -v http://localhost:3000
+        run: sh php -S localhost:3000 ${GITHUB_WORKSPACE}/test/website.php > ${GITHUB_WORKSPACE}/test/website-log 2>&1 &
 
       - name: Run wait until servers are ready
         run: sleep 15
+
+      - name: Show logs
+        run: cat ${GITHUB_WORKSPACE}/test/website-log
+
+      - name: Check test servers health
+        run: curl -v http://localhost:3000
 
       - name: Run tests
         run: php ${GITHUB_WORKSPACE}/test/vendor/phpunit/phpunit/phpunit --configuration ${GITHUB_WORKSPACE}/test/phpunit.xml
