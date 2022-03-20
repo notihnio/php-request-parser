@@ -38,7 +38,7 @@ jobs:
         run: composer install --working-dir=${GITHUB_WORKSPACE}/test --prefer-dist --no-progress
 
       - name: Run test web servers
-        run: sh php -S localhost:3000 ${GITHUB_WORKSPACE}/test/website.php > ${GITHUB_WORKSPACE}/test/website-log 2>&1 &
+        run: php -S localhost:3000 ${GITHUB_WORKSPACE}/test/website.php > ${GITHUB_WORKSPACE}/test/website-log 2>&1 &
 
       - name: Run wait until servers are ready
         run: sleep 15
