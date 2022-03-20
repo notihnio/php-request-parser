@@ -37,8 +37,14 @@ jobs:
       - name: Install dependencies
         run: composer install --working-dir=${GITHUB_WORKSPACE}/test --prefer-dist --no-progress
 
-      - name: Run test web servers
+      - name: Run test web server
         run: php -S localhost:3000 ${GITHUB_WORKSPACE}/test/website.php > ${GITHUB_WORKSPACE}/test/website-log 2>&1 &
+
+      - name: Run laravel test web server
+        run: php -S localhost:3001 ${GITHUB_WORKSPACE}/test/laravelWebsite.php > ${GITHUB_WORKSPACE}/test/laravelWebsite-log 2>&1 &
+
+      - name: Run symfony test web server
+        run: php -S localhost:3002 ${GITHUB_WORKSPACE}/test/symfonyWebsite.php > ${GITHUB_WORKSPACE}/test/symfonyWebsite-log 2>&1 &
 
       - name: Run wait until servers are ready
         run: sleep 15
