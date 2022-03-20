@@ -38,7 +38,7 @@ jobs:
         run: composer install --working-dir=${GITHUB_WORKSPACE}/test --prefer-dist --no-progress
 
       - name: Run test web servers
-        run: sh php -S localhost:3000 ${GITHUB_WORKSPACE}/test/website.php > ./website-log
+        run: php -S localhost:3000 ${GITHUB_WORKSPACE}/test/website.php > ./website-log
 
       - name: Check test servers health
         run: curl -v http://localhost:3000
