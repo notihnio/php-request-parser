@@ -17,6 +17,7 @@ jobs:
         with:
           php-version: '8.1'
           coverage: none
+          ini-values: opcache.enable_cli=0, opcache.enable=0
           extensions: mbstring
 
       - uses: actions/checkout@v2
@@ -37,7 +38,7 @@ jobs:
         run: composer install --working-dir=${GITHUB_WORKSPACE}/test --prefer-dist --no-progress
 
       - name: Run test web servers
-        run: sh ${GITHUB_WORKSPACE}/test/initservers.sh
+        run: sh php -S localhost:3000 ${GITHUB_WORKSPACE}/test/website.php > ./website-log 2>&1 &
 
       - name: Check test servers health
         run: curl -v http://localhost:3000
