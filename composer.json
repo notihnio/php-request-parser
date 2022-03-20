@@ -1,6 +1,6 @@
 {
     "name": "notihnio/php-request-parser",
-    "description": "The missing php functionality to support put, patch, delete, etc.. requests handling",
+    "description": "The missing php functionality to support put, patch, delete, put etc.. FORM and MULTIPART requests handling",
     "type": "library",
     "license": "MIT",
     "authors": [
