@@ -12,28 +12,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Setup PHP with exceptions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
+      - uses: actions/checkout@v2
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-php-
+      - name: Validate composer.json and composer.lock
+        run: composer validate --strict
 
-    - name: Install dependencies
-      run: composer install --working-dir=${GITHUB_WORKSPACE}/test --prefer-dist --no-progress
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
 
-    - name: Run test web servers
-      run: sh ${GITHUB_WORKSPACE}/test/initservers.sh
-      
-    - name: Run tests
-      run: php ${GITHUB_WORKSPACE}/test/vendor/phpunit/phpunit/phpunit --configuration ${GITHUB_WORKSPACE}/test/phpunit.xml
+      - name: Install dependencies
+        run: composer install --working-dir=${GITHUB_WORKSPACE}/test --prefer-dist --no-progress
 
-    - name: Show logs
-      run: cat ${GITHUB_WORKSPACE}/test/website-log
+      - name: Run test web servers
+        run: sh ${GITHUB_WORKSPACE}/test/initservers.sh
+
+      - name: Run tests
+        run: php ${GITHUB_WORKSPACE}/test/vendor/phpunit/phpunit/phpunit --configuration ${GITHUB_WORKSPACE}/test/phpunit.xml
+
+      - name: Show logs
+        run: cat ${GITHUB_WORKSPACE}/test/website-log
