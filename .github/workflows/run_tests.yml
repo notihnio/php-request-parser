@@ -16,6 +16,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
+          ini-values: opcache.enable_cli=0, opcache.enable=0
           extensions: mbstring
 
       - uses: actions/checkout@v2
