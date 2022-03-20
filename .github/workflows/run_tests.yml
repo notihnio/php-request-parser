@@ -16,7 +16,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
-          extensions: mbstring
+          extensions: mbstring, xdebug
 
       - uses: actions/checkout@v2
 
@@ -37,6 +37,9 @@ jobs:
 
       - name: Run test web servers
         run: sh ${GITHUB_WORKSPACE}/test/initservers.sh
+
+      - name: Run test servers health check
+        run: curl -o - -w "\n%{http_code}\n" http://localhost:3000 | tee >(tail -n 1 | cmp <(echo 2xx) - ) | tee >(grep "char 2"; echo $? > status-code) && grep 0 status-code
 
       - name: Run tests
         run: php ${GITHUB_WORKSPACE}/test/vendor/phpunit/phpunit/phpunit --configuration ${GITHUB_WORKSPACE}/test/phpunit.xml
