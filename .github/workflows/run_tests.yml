@@ -38,11 +38,11 @@ jobs:
       - name: Run test web servers
         run: sh ${GITHUB_WORKSPACE}/test/initservers.sh
 
-      - name: Run wait until serves are ready
+      - name: Run wait until servers are ready
         run: sleep 15
-
-      - name: Run tests
-        run: php ${GITHUB_WORKSPACE}/test/vendor/phpunit/phpunit/phpunit --configuration ${GITHUB_WORKSPACE}/test/phpunit.xml
 
       - name: Show logs
         run: cat ${GITHUB_WORKSPACE}/test/website-log
+
+      - name: Run tests
+        run: php ${GITHUB_WORKSPACE}/test/vendor/phpunit/phpunit/phpunit --configuration ${GITHUB_WORKSPACE}/test/phpunit.xml
