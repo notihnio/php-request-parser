@@ -1,6 +1,6 @@
 # PHP Request Parser
 
-The missing php functionality to support **put**, **patch**, **delete**, **put** etc.. **FORM** and **MULTIPART** requests handling 
+The missing php functionality to support **put**, **patch**, **delete**, **put**, **FORM** and **MULTIPART** requests handling
 
 ## Install
 
