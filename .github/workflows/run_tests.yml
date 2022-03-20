@@ -47,7 +47,10 @@ jobs:
         run: cat ${GITHUB_WORKSPACE}/test/website-log
 
       - name: Check test servers health
-        run: curl -v http://localhost:3000
+        run: curl -v http://localhost:3000?param=value1
+
+      - name: Show logs
+        run: cat ${GITHUB_WORKSPACE}/test/website-log
 
       - name: Run tests
         run: php ${GITHUB_WORKSPACE}/test/vendor/phpunit/phpunit/phpunit --configuration ${GITHUB_WORKSPACE}/test/phpunit.xml
