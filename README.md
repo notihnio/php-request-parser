@@ -2,6 +2,10 @@
 
 The missing php functionality to support **put**, **patch**, **delete**, **put**, **FORM** and **MULTIPART** requests handling
 
+[![Latest Stable Version](http://poser.pugx.org/notihnio/php-request-parser/v)](https://packagist.org/packages/notihnio/php-request-parser) [![Total Downloads](http://poser.pugx.org/notihnio/php-request-parser/downloads)](https://packagist.org/packages/notihnio/php-request-parser)  [![License](http://poser.pugx.org/notihnio/php-request-parser/license)](https://packagist.org/packages/notihnio/php-request-parser) [![PHP Version Require](http://poser.pugx.org/notihnio/php-request-parser/require/php)](https://packagist.org/packages/notihnio/php-request-parser)
+![example workflow](https://github.com/notihnio/php-request-parser/actions/workflows/run_tests.yml/badge.svg)
+
+
 ## Install
 
 ```
