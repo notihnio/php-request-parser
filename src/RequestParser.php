@@ -46,7 +46,7 @@ class RequestParser
 
         //handle multipart requests
         if (self::$isMultipart) {
-            $multipartRequest =  MultipartFormDataParser::parse();
+            $multipartRequest =  MultipartFormDataParser::parse($request);
             if (!is_null($multipartRequest)) {
                 $dataset->params = $multipartRequest->params;
                 $dataset->files = $multipartRequest->files;
@@ -73,10 +73,19 @@ class RequestParser
 
         //get form params
         $requestContents = (is_null($request)) ? file_get_contents("php://input") : $request->getContent();
-        parse_str($requestContents, $params);
-        $GLOBALS["_".$method] = $params;
-        $dataset->params = $params;
 
+        if (empty($requestContents)) {
+            //road runner returns empty content, fallback to framework defaults
+            if (!is_null($request)) {
+                var_dump($request->files->all());
+                $dataset->files = $request->files->all();
+                $dataset->params = $request->request->all();
+            }
+        } else {
+            parse_str($requestContents, $params);
+            $GLOBALS["_".$method] = $params;
+            $dataset->params = $params;
+        }
         return $dataset;
     }
 
