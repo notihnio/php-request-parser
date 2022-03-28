@@ -77,7 +77,6 @@ class RequestParser
         if (empty($requestContents)) {
             //roadrunner returns empty content, fallback to framework defaults
             if (!is_null($request)) {
-                var_dump($request->files->all());
                 $dataset->files = $request->files->all();
                 $dataset->params = $request->request->all();
             }
