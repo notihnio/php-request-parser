@@ -9,7 +9,7 @@ The missing php functionality to support **put**, **patch**, **delete**, **put**
 ## Install
 
 ```
-composer require notihnio/php-request-parser:2.0.0
+composer require notihnio/php-request-parser:^2.0
 ```
 ## Usage
 
