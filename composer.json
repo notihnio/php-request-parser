@@ -1,5 +1,5 @@
 {
-    "name": "notihnio/php-request-parser",
+    "name": "bisanedev/php-request-parser",
     "description": "The missing php functionality to support put, patch, delete, put FORM and MULTIPART requests handling",
     "type": "library",
     "license": "MIT",
@@ -16,7 +16,7 @@
     },
     "require": {
         "php": ">=8.0",
-        "notihnio/php-multipart-form-data-parser": "^2.0",
+        "bisanedev/php-multipart-form-data-parser": "^2.0",
         "illuminate/http": "^v10.0"
     },
     "minimum-stability": "dev"
