@@ -17,7 +17,7 @@
     "require": {
         "php": ">=8.0",
         "bisanedev/php-multipart-form-data-parser": "^1.01",
-        "illuminate/http": "^v10.0"
+        "illuminate/http": "^v10.15"
     },
     "minimum-stability": "dev"
 }
